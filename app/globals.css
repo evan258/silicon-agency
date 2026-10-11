@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --page: #ffffff;
+  --soft: #f3f6ff;
+  --surface: #ffffff;
+  --main: #0b0f19;
+  --muted: #565973;
+  --subtle: #9397ad;
+  --ink: #33354d;
+  --line: #e2e5f1;
+  --input: #cbd5e1;
+}
+
+.dark {
+  --page: #0b0b16;
+  --soft: #11111f;
+  --surface: #15152a;
+  --main: #f4f4fb;
+  --muted: #a3a6c2;
+  --subtle: #7d80a0;
+  --ink: #d8d9ee;
+  --line: #26263f;
+  --input: #3b3b5c;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-manrope: var(--font-manrope);
+  --color-brand: #6366f1;
+  --color-brand-violet: #8b5cf6;
+  --color-brand-pink: #d946ef;
+  --color-page: var(--page);
+  --color-soft: var(--soft);
+  --color-surface: var(--surface);
+  --color-main: var(--main);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-ink: var(--ink);
+  --color-line: var(--line);
+  /* tokens used by the shadcn Switch */
+  --color-background: var(--page);
+  --color-foreground: var(--main);
+  --color-primary: var(--color-brand);
+  --color-primary-foreground: #ffffff;
+  --color-input: var(--input);
+  --color-ring: var(--color-brand);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply font-manrope bg-page text-main transition-colors duration-300;
+  }
+  h1 {
+    @apply text-4xl md:text-5xl xl:text-6xl font-extrabold leading-tight;
+  }
+  h2 {
+    @apply text-3xl md:text-[40px] font-extrabold leading-tight;
+  }
+  h3 {
+    @apply text-xl font-bold;
+  }
+  p {
+    @apply text-muted leading-relaxed;
+  }
+  * {
+    @apply border-line;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container-x {
+    @apply max-w-340 mx-auto px-5 md:px-8;
+  }
+  .btn-brand {
+    @apply cursor-pointer inline-flex items-center justify-center gap-2 px-8.5 py-3.5 rounded-md bg-brand text-white font-medium shadow-lg shadow-brand/30 hover:bg-brand-violet transition-colors disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+  .btn-light {
+    @apply cursor-pointer inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-md bg-white text-slate-900 font-medium shadow-lg hover:bg-slate-100 transition-colors;
+  }
+  /* Hero background layers (copied as CSS from Figma: Header > bg and bg-shape > Vector) */
+  .hero-bg {
+    background: radial-gradient(
+      84.79% 172.9% at 73.31% 31.4%,
+      rgba(99, 135, 241, 0.1) 0%,
+      rgba(218, 70, 239, 0.05) 52.47%,
+      rgba(99, 135, 241, 0.1) 100%
+    );
+  }
+  .hero-glow {
+    background: radial-gradient(77.03% 77.03% at 103.35% 105.94%, rgba(99, 102, 241, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+  }
+  .gradient-text {
+    @apply bg-linear-to-r from-brand to-brand-pink bg-clip-text text-transparent;
+  }
+}
+
+/* Content slides in from the right when it changes (pager and sliders) */
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+.slide-in {
+  animation: slide-in 0.4s ease-out;
 }
