@@ -27,7 +27,7 @@ const ContactPage = () => {
   const onSubmit = async (data: ContactFormData) => {
     try {
       await sendMessage({ title: `${data.name} <${data.email}>`, body: data.message }).unwrap();
-      toast.success("Message sent! We will get back to you soon.");
+      toast.success("Post uploaded successfully");
       reset();
     } catch {
       toast.error("Could not send your message. Please try again.");

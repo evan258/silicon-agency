@@ -2,10 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://jsonplaceholder.typicode.com" }),
   endpoints: (builder) => ({
     sendMessage: builder.mutation<{ id: number }, { title: string; body: string }>({
-      query: (body) => ({ url: "/posts/add", method: "POST", body: { ...body, userId: 1 } }),
+      query: (body) => ({ url: "/posts", method: "POST", body: { ...body, userId: 1 } }),
     }),
   }),
 });
